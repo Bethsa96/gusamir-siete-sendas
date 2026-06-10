@@ -1,0 +1,20 @@
+const todosLosLogros = [
+    "Primer Paso",
+    "Gastronomía cuestionable",
+    "Transporte alternativo",
+    "Tamaño táctico",
+    "Resaca legendaria",
+    "Estrategia cuestionable",
+    "Florista aficionado",
+    "Cartero honorario",
+    "Saqueador profesional",
+    "Cartógrafo",
+    "Amigo de las cabras",
+    "Guardianes del Umbral",
+    "Final Verdadero",
+    "Final Bueno",
+    "Final Normal",
+    "Final Tardío",
+    "Final Absurdo",
+    "La Octava Senda"
+];

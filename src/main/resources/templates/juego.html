@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Gusamir y las Siete Sendas</title>
+        <link rel="stylesheet" href="/css/juego.css">
+    </head>
+    <body>
+
+        <main id="pantalla-juego">
+
+            <section id="menu-principal" class="pantalla">
+                <h1>Gusamir y las Siete Sendas</h1>
+                <p class="subtitulo">Una aventura inesperada para quienes aún tienen caminos por recorrer.</p>
+
+                <button onclick="nuevaPartida()">Nueva partida</button>
+                <button onclick="continuarPartida()">Continuar</button>
+                <button onclick="mostrarLogros()">Logros</button>
+            </section>
+
+            <section id="zona-juego" class="pantalla oculto">
+                <div class="barra-superior">
+                    <span id="fecha-juego">Día 1 · Mañana</span>
+
+                    <div class="botones-superiores">
+                        <button onclick="abrirMenuJuego()">Aventura</button>
+                        <button onclick="mostrarMenu()">Menú Principal</button>
+                    </div>
+                </div>
+
+                <h2 id="titulo-escena"></h2>
+                <p id="texto-escena"></p>
+
+                <div id="opciones"></div>
+            </section>
+
+            <section id="menu-juego" class="pantalla oculto">
+                <h2>Menú de Gusamir</h2>
+
+                <button onclick="mostrarSubmenu('inventario')">🎒 Mochila</button>
+                <button onclick="mostrarSubmenu('cartas')">✉️ Cartas</button>
+                <button onclick="mostrarSubmenu('flores')">🌸 Flores</button>
+                <button onclick="mostrarSubmenu('mapa')">📜 Mapa</button>
+                <button onclick="mostrarSubmenu('diario')">📖 Diario</button>
+                <button onclick="mostrarSubmenu('estado')">📊 Estado</button>
+
+                <hr>
+
+                <div id="contenido-submenu"></div>
+
+                <button onclick="cerrarMenuJuego()">Volver a la aventura</button>
+            </section>
+
+            <section id="zona-logros" class="pantalla oculto">
+                <h2>Logros</h2>
+                <div id="lista-logros"></div>
+                <button onclick="volverAlMenu()">Volver</button>
+            </section>
+
+        </main>
+
+        <script src="/js/estado-inicial.js"></script>
+        <script src="/js/logros.js"></script>
+        <script src="/js/escenas-acto1.js"></script>
+        <script src="/js/juego.js"></script>
+
+    </body>
+</html>
