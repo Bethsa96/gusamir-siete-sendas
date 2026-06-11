@@ -1,5 +1,6 @@
 const escenas = {
-    ...escenasActo1
+    ...escenasActo1,
+    ...escenasActo2
 };
 
 function nuevaPartida() {
@@ -44,6 +45,10 @@ function cargarEscena(idEscena) {
     opcionesDiv.innerHTML = "";
 
     escena.opciones.forEach(opcion => {
+        if (opcion.condicion && !opcion.condicion()) {
+            return;
+        }
+
         const boton = document.createElement("button");
         boton.textContent = opcion.texto;
 
@@ -282,4 +287,28 @@ function mostrarSubmenu(tipo) {
     }
 
     contenedor.innerHTML = html;
+}
+
+function tieneObjeto(nombre) {
+    return estado.inventario.includes(nombre);
+}
+
+function quitarObjeto(nombre) {
+    estado.inventario = estado.inventario.filter(objeto => objeto !== nombre);
+}
+
+function avanzarHastaNoche() {
+    while (estado.periodo !== "Noche") {
+        avanzarTiempo(3);
+    }
+}
+
+function dormirHastaMananaSiguiente() {
+    estado.dia++;
+    estado.periodo = "Mañana";
+    estado.puntosPeriodo = 0;
+}
+
+function tieneLogro(nombre) {
+    return estado.logros.includes(nombre);
 }

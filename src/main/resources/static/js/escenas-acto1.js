@@ -27,7 +27,7 @@ En algún lugar del mundo, Bethriel probablemente acaba de suspirar.`,
         opciones: [
             {
                 texto: "Levantarse con dignidad reducida",
-                accion: () => avanzarTiempo(2),
+                accion: () => avanzarTiempo(3),
                 siguiente: "acto1_inicio"
             }
         ]
@@ -44,7 +44,7 @@ No es exactamente un tesoro legendario, pero todo viaje empieza con algo.`,
             {
                 texto: "Guardar la moneda antigua",
                 accion: () => agregarObjeto("Moneda antigua"),
-                siguiente: "acto1_carta_bethriel"
+                siguiente: "acto1_inicio"
             },
             {
                 texto: "Ignorar la moneda y leer la carta",
@@ -308,7 +308,7 @@ La Aldea del Primer Sol espera al final del camino.`,
                 texto: "Descansar bajo un árbol antes de seguir",
                 accion: () => {
                     estado.energia += 10;
-                    avanzarTiempo(2);
+                    avanzarHastaNoche();
                 },
                 siguiente: "acto1_llegada_aldea_tarde"
             }
@@ -618,6 +618,14 @@ Y ha conocido a Vorian.
 
 La Primera Senda lo espera más allá de la Aldea del Primer Sol.`,
         opciones: [
+            {
+                texto: "Descansar en la posada y comenzar el Acto II",
+                accion: () => {
+                    dormirHastaMananaSiguiente();
+                    guardarPartida();
+                },
+                siguiente: "acto2_inicio"
+            },
             {
                 texto: "Guardar y volver al menú",
                 accion: () => guardarPartida(),
