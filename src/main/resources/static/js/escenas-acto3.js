@@ -955,10 +955,458 @@ Más allá del bosque comienzan los senderos de montaña.
 El Paso de la Cabra Gris espera.`,
         opciones: [
             {
+                texto: "Continuar hacia los senderos de montaña",
+                accion: () => {
+                    completarActo("Acto 3A");
+                    guardarPartida();
+                },
+                siguiente: "acto3b_inicio"
+            },
+            {
+                texto: "Guardar y volver al menú",
+                accion: () => guardarPartida(),
+                volverMenu: true
+            }
+        ]
+    },
+    
+    acto3b_inicio: {
+    titulo: "Acto IIIB — Senderos de montaña",
+    texto: `Más allá del Bosque de los Dos Guardianes, el terreno empieza a elevarse.
+
+Las praderas quedan atrás.
+
+Las montañas grises se alzan como viejos gigantes dormidos.
+
+Brumli ajusta su mochila.
+
+"Ahora empieza lo bueno."
+
+Pausa.
+
+"Lo bueno, en este caso, significa piedras, frío y una alta probabilidad de que alguien se caiga."`,
+    opciones: [
+        {
+            texto: "Avanzar por el sendero principal",
+            accion: () => avanzarTiempo(1),
+            siguiente: "acto3b_sendero_principal"
+        },
+        {
+            texto: "Explorar las rocas cercanas",
+            accion: () => avanzarTiempo(1),
+            siguiente: "acto3b_rocas"
+        }
+    ]
+},
+
+acto3b_rocas: {
+    titulo: "Rocas sospechosamente colocadas",
+    texto: `Gusamir explora unas rocas cercanas.
+
+Entre dos piedras encuentra un pequeño cofre oxidado.
+
+Brumli sonríe.
+
+"Eso no estaba escondido. Eso estaba esperando a alguien con curiosidad y poca prisa."`,
+    opciones: [
+        {
+            texto: "Abrir el cofre",
+            siguiente: "acto3b_cofre_rocas"
+        },
+        {
+            texto: "Volver al sendero principal",
+            siguiente: "acto3b_sendero_principal"
+        }
+    ]
+},
+
+acto3b_cofre_rocas: {
+    titulo: "El cofre oxidado",
+    texto: `El cofre se abre con un crujido.
+
+Dentro hay una pequeña campanilla antigua y una nota escrita en letra diminuta.
+
+La campanilla no suena.
+
+O quizá solo suena para quien debe escucharla.`,
+    opciones: [
+        {
+            texto: "Guardar la campanilla antigua",
+            accion: () => {
+                agregarObjeto("Campanilla antigua");
+                agregarEntradaDiario(
+                    "Campanilla antigua",
+                    "He encontrado una campanilla que no suena. Brumli dice que los objetos mudos suelen acabar siendo importantes. O inútiles. No ha concretado."
+                );
+            },
+            siguiente: "acto3b_sendero_principal"
+        }
+    ]
+},
+
+acto3b_sendero_principal: {
+    titulo: "El sendero de piedra",
+    texto: `El sendero principal asciende entre piedras grises.
+
+El viento sopla con fuerza.
+
+A media subida, Brumli señala una marca tallada en una roca.
+
+Parece una pezuña.
+
+Gusamir reconoce el símbolo.`,
+    opciones: [
+        {
+            texto: "Examinar la marca de pezuña",
+            accion: () => {
+                estado.vinculo += 1;
+                registrarEvento("marca_saltarina_montana");
+            },
+            siguiente: "acto3b_marca_pezuna"
+        },
+        {
+            texto: "Seguir caminando sin detenerse",
+            accion: () => avanzarTiempo(1),
+            siguiente: "acto3b_viento_fuerte"
+        }
+    ]
+},
+
+acto3b_marca_pezuna: {
+    titulo: "La señal de Saltarina",
+    texto: `La marca está tallada con precisión.
+
+No parece reciente.
+
+Tampoco parece antigua.
+
+Brumli se rasca la barba.
+
+"Las cabras normales no dejan símbolos en piedra."
+
+Pausa.
+
+"Las cabras normales tampoco te lanzan colina abajo con fines estratégicos."`,
+    opciones: [
+        {
+            texto: "Seguir la dirección de la marca",
+            accion: () => {
+                estado.vinculo += 1;
+                avanzarTiempo(1);
+            },
+            siguiente: "acto3b_atajo_pedregoso"
+        },
+        {
+            texto: "Seguir caminando por el sendero principal",
+            accion: () => avanzarTiempo(1),
+            siguiente: "acto3b_viento_fuerte"
+        }
+    ]
+},
+
+acto3b_atajo_pedregoso: {
+    titulo: "Atajo pedregoso",
+    texto: `La marca conduce a un paso estrecho entre rocas.
+
+El camino es incómodo, pero evita una gran subida.
+
+Brumli observa el paso.
+
+"Esto es lo que los altos llamáis atajo."
+
+"Los enanos lo llamamos pasillo con mala educación."`,
+    opciones: [
+        {
+            texto: "Cruzar el paso estrecho",
+            accion: () => {
+                estado.energia -= 5;
+                registrarEvento("atajo_saltarina_montana");
+            },
+            siguiente: "acto3b_mirador"
+        }
+    ]
+},
+
+acto3b_viento_fuerte: {
+    titulo: "Viento de montaña",
+    texto: `El viento golpea con fuerza.
+
+Gusamir avanza despacio.
+
+Brumli se mantiene firme.
+
+"Ventaja de ser compacto."
+
+Una ráfaga empuja a Gusamir varios pasos hacia atrás.
+
+Brumli intenta no reírse.
+
+No lo consigue.`,
+    opciones: [
+        {
+            texto: "Continuar contra el viento",
+            accion: () => {
+                estado.energia -= 10;
+                avanzarTiempo(1);
+            },
+            siguiente: "acto3b_mirador"
+        },
+        {
+            texto: "Buscar refugio entre las rocas",
+            accion: () => avanzarTiempo(1),
+            siguiente: "acto3b_refugio_rocas"
+        }
+    ]
+},
+
+acto3b_refugio_rocas: {
+    titulo: "Refugio entre rocas",
+    texto: `Gusamir y Brumli se refugian entre unas piedras altas.
+
+Allí encuentran restos de una fogata antigua.
+
+Sobre una roca hay una inscripción:
+
+"Quien corre hacia la montaña, llega cansado.
+
+Quien escucha a la montaña, llega entero."
+
+Brumli asiente.
+
+"La montaña sabe cosas. También aplasta cosas. Conviene respetarla."`,
+    opciones: [
+        {
+            texto: "Descansar un momento",
+            accion: () => {
+                estado.energia += 10;
+                avanzarTiempo(1);
+            },
+            siguiente: "acto3b_mirador"
+        },
+        {
+            texto: "Continuar sin descansar",
+            siguiente: "acto3b_mirador"
+        }
+    ]
+},
+
+acto3b_mirador: {
+    titulo: "El mirador gris",
+    texto: `El sendero llega a un mirador natural.
+
+Desde allí se ve el bosque que han dejado atrás.
+
+Más adelante, entre montañas, aparece un paso estrecho cubierto de niebla.
+
+Brumli baja la voz.
+
+"El Paso de la Cabra Gris."
+
+En una roca cercana hay otra carta doblada.`,
+    opciones: [
+        {
+            texto: "Leer la carta",
+            siguiente: "acto3b_carta_bethriel"
+        },
+        {
+            texto: "Mirar primero hacia el paso",
+            siguiente: "acto3b_observar_paso"
+        }
+    ]
+},
+
+acto3b_observar_paso: {
+    titulo: "El Paso de la Cabra Gris",
+    texto: `El paso parece más una grieta en la montaña que un camino.
+
+A lo lejos, una silueta gris se mueve entre la niebla.
+
+Saltarina.
+
+Esta vez no parece estar huyendo.
+
+Parece estar esperando.`,
+    opciones: [
+        {
+            texto: "Leer la carta de Bethriel",
+            siguiente: "acto3b_carta_bethriel"
+        }
+    ]
+},
+
+acto3b_carta_bethriel: {
+    titulo: "Carta de Bethriel",
+    texto: `La carta dice:
+
+"Gusamir.
+
+Si has llegado hasta aquí, probablemente ya hayas descubierto dos cosas.
+
+La primera: Saltarina no se equivoca tanto como parece.
+
+La segunda: Brumli se queja más de lo que camina.
+
+No le digas que lo he escrito.
+
+— Bethriel"
+
+Brumli entrecierra los ojos.
+
+"¿Esa carta habla de mí?"
+
+Gusamir decide guardar silencio.`,
+    opciones: [
+        {
+            texto: "Guardar la carta",
+            accion: () => {
+                agregarCarta({
+                    id: "carta_4",
+                    titulo: "Carta IV: Sobre Brumli y Saltarina",
+                    texto: `"Gusamir.
+
+Si has llegado hasta aquí, probablemente ya hayas descubierto dos cosas.
+
+La primera: Saltarina no se equivoca tanto como parece.
+
+La segunda: Brumli se queja más de lo que camina.
+
+No le digas que lo he escrito.
+
+— Bethriel"`
+                });
+
+                agregarEntradaDiario(
+                    "Carta del mirador",
+                    "Bethriel ha escrito sobre Saltarina y Brumli. Sospecho que sabe mucho más de este viaje de lo que aparenta."
+                );
+            },
+            siguiente: "acto3b_descenso_paso"
+        }
+    ]
+},
+
+acto3b_descenso_paso: {
+    titulo: "Descenso hacia el paso",
+    texto: `Gusamir y Brumli comienzan el descenso.
+
+El camino es estrecho.
+
+La niebla sube desde las rocas.
+
+En mitad del sendero, Saltarina aparece de nuevo.
+
+Esta vez se acerca.
+
+Se detiene frente a Gusamir.
+
+Y golpea suavemente el suelo con una pezuña.`,
+    opciones: [
+        {
+            texto: "Esperar y observar qué quiere",
+            accion: () => {
+                estado.vinculo += 1;
+                registrarEvento("saltarina_espera_acto3b");
+            },
+            siguiente: "acto3b_saltarina_senal"
+        },
+        {
+            texto: "Intentar rodearla",
+            accion: () => {
+                estado.vinculo -= 1;
+                avanzarTiempo(1);
+            },
+            siguiente: "acto3b_rodear_saltarina"
+        }
+    ]
+},
+
+acto3b_rodear_saltarina: {
+    titulo: "Rodear a Saltarina",
+    texto: `Gusamir intenta rodear a Saltarina.
+
+La cabra da un paso lateral.
+
+Gusamir intenta por el otro lado.
+
+La cabra vuelve a bloquearle.
+
+Brumli se cruza de brazos.
+
+"Creo que ha encontrado tu punto débil: las instrucciones no verbales."`,
+    opciones: [
+        {
+            texto: "Aceptar que Saltarina quiere enseñar algo",
+            accion: () => estado.vinculo += 1,
+            siguiente: "acto3b_saltarina_senal"
+        }
+    ]
+},
+
+acto3b_saltarina_senal: {
+    titulo: "La señal bajo la piedra",
+    texto: `Saltarina golpea una piedra plana con la pezuña.
+
+Gusamir la levanta.
+
+Debajo hay una pequeña flor azul, casi escondida entre la tierra.
+
+No brilla.
+
+No se mueve.
+
+Pero el aire alrededor parece más tranquilo.`,
+    opciones: [
+        {
+            texto: "Recoger la flor azul",
+            accion: () => {
+                agregarFlor("Flor del Paso Gris");
+                agregarEntradaDiario(
+                    "Flor del Paso Gris",
+                    "Saltarina me ha mostrado una flor escondida bajo una piedra. Empiezo a creer que no solo observa el camino: lo protege."
+                );
+            },
+            siguiente: "acto3b_puerta_paso"
+        }
+    ]
+    },
+
+    acto3b_puerta_paso: {
+        titulo: "La entrada al Paso",
+        texto: `El sendero termina ante una abertura estrecha entre dos paredes de roca.
+
+El viento deja de soplar.
+
+El silencio pesa.
+
+Brumli mira la entrada.
+
+"Bueno."
+
+"Siempre quise meterme en una grieta de montaña custodiada por una cabra misteriosa."
+
+Pausa.
+
+"Mentira. Nunca quise."`,
+        opciones: [
+            {
+                texto: "Entrar en el Paso de la Cabra Gris",
+                accion: () => {
+                    descubrirMapa("Paso de la Cabra Gris");
+                    completarActo("Acto 3");
+                    agregarEntradaDiario(
+                            "Acto III completado",
+                            "Hemos llegado al Paso de la Cabra Gris. Saltarina ya no parece solo una señal del camino. Parece parte del destino."
+                            );
+                    guardarPartida();
+                },
+                siguiente: "acto4_inicio"
+            },
+            {
                 texto: "Guardar y volver al menú",
                 accion: () => guardarPartida(),
                 volverMenu: true
             }
         ]
     }
+    
 };
