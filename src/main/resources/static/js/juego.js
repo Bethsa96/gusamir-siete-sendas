@@ -1,6 +1,7 @@
 const escenas = {
     ...escenasActo1,
-    ...escenasActo2
+    ...escenasActo2,
+    ...escenasActo3
 };
 
 function nuevaPartida() {
@@ -37,9 +38,10 @@ function cargarEscena(idEscena) {
     guardarPartida();
 
     document.getElementById("titulo-escena").textContent = escena.titulo;
-    document.getElementById("texto-escena").textContent = escena.texto;
+    document.getElementById("texto-escena").textContent =
+            typeof escena.texto === "function" ? escena.texto() : escena.texto;
     document.getElementById("fecha-juego").textContent =
-        `Día ${estado.dia} · ${estado.periodo}`;
+            `Día ${estado.dia} · ${estado.periodo}`;
 
     const opcionesDiv = document.getElementById("opciones");
     opcionesDiv.innerHTML = "";
@@ -298,8 +300,9 @@ function quitarObjeto(nombre) {
 }
 
 function avanzarHastaNoche() {
+
     while (estado.periodo !== "Noche") {
-        avanzarTiempo(3);
+        avanzarTiempo(1);
     }
 }
 
@@ -311,4 +314,18 @@ function dormirHastaMananaSiguiente() {
 
 function tieneLogro(nombre) {
     return estado.logros.includes(nombre);
+}
+
+function registrarEvento(nombre) {
+    if (!estado.eventos) {
+        estado.eventos = [];
+    }
+
+    if (!estado.eventos.includes(nombre)) {
+        estado.eventos.push(nombre);
+    }
+}
+
+function tieneEvento(nombre) {
+    return estado.eventos && estado.eventos.includes(nombre);
 }

@@ -66,7 +66,7 @@ Eso ya es más que muchos aventureros.`,
 
     acto2_cantimplora: {
         titulo: "Agua de viaje",
-        texto: tieneLogro("Gastronomía cuestionable")
+        texto: () => tieneLogro("Gastronomía cuestionable")
                 ? `Gusamir llena la cantimplora.
 
 El vendedor le advierte:

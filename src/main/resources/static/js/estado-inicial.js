@@ -11,6 +11,7 @@ function crearEstadoInicial() {
         flores: [],
         cartas: [],
         diario: [],
+        eventos: [],
         logros: [],
         mapa: ["Vega Serena"],
         actosCompletados: []
