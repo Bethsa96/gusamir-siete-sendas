@@ -27,7 +27,10 @@ En algún lugar del mundo, Bethriel probablemente acaba de suspirar.`,
         opciones: [
             {
                 texto: "Levantarse con dignidad reducida",
-                accion: () => avanzarTiempo(3),
+                accion: () => {
+                    avanzarTiempo(3);
+                    recuperarEnergia(20);
+                },
                 siguiente: "acto1_inicio"
             }
         ]

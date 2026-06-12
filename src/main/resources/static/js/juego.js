@@ -29,7 +29,8 @@ const escenas = {
     ...escenasActo1,
     ...escenasActo2,
     ...escenasActo3,
-    ...escenasActo4
+    ...escenasActo4,
+    ...escenasActo5
 };
 
 function nuevaPartida() {
@@ -83,8 +84,15 @@ function cargarEscena(idEscena) {
         boton.textContent = opcion.texto;
 
         boton.onclick = () => {
+            estado.agotado = false;
+
             if (opcion.accion) {
                 opcion.accion();
+            }
+
+            if (estado.agotado) {
+                cargarEscena("agotamiento");
+                return;
             }
 
             if (opcion.volverMenu) {
@@ -151,12 +159,23 @@ function agregarCarta(carta) {
 }
 
 function agregarEntradaDiario(titulo, texto) {
-    estado.diario.push({
-        dia: estado.dia,
-        periodo: estado.periodo,
-        titulo: titulo,
-        texto: texto
-    });
+    if (!estado.diario) {
+        estado.diario = [];
+    }
+
+    const existe = estado.diario.some(entrada =>
+        entrada.titulo === titulo &&
+        entrada.texto === texto
+    );
+
+    if (!existe) {
+        estado.diario.push({
+            dia: estado.dia,
+            periodo: estado.periodo,
+            titulo: titulo,
+            texto: texto
+        });
+    }
 }
 
 function descubrirMapa(nombre) {
@@ -181,8 +200,8 @@ function desbloquearLogro(nombre) {
 function avanzarTiempo(puntos) {
     estado.puntosPeriodo += puntos;
 
-    while (estado.puntosPeriodo >= 3) {
-        estado.puntosPeriodo -= 3;
+    while (estado.puntosPeriodo >= 2) {
+        estado.puntosPeriodo -= 2;
 
         if (estado.periodo === "Mañana") {
             estado.periodo = "Tarde";
@@ -193,6 +212,8 @@ function avanzarTiempo(puntos) {
             estado.dia++;
         }
     }
+    
+    estado.vorianVentaja += puntos;
 }
 
 function mostrarLogros() {
@@ -401,6 +422,8 @@ function gastarEnergia(cantidad) {
 }
 
 function activarAgotamiento() {
+    estado.agotado = true;
+    
     estado.dia++;
     estado.periodo = "Mañana";
     estado.puntosPeriodo = 0;
@@ -459,4 +482,8 @@ function usarConsumible(nombre) {
 
     guardarPartida();
     mostrarSubmenu("inventario");
+}
+
+function aumentarVentajaVorian(cantidad) {
+    estado.vorianVentaja += cantidad;
 }

@@ -4,7 +4,7 @@ function crearEstadoInicial() {
         dia: 1,
         periodo: "Mañana",
         puntosPeriodo: 0,
-        energia: 100,
+        energia: 80,
         valor: 0,
         vinculo: 0,
         inventario: [],
@@ -12,7 +12,9 @@ function crearEstadoInicial() {
         cartas: [],
         diario: [],
         eventos: [],
+        agotado: false,
         ultimoLugarSeguro: "acto1_inicio",
+        vorianVentaja: 0,
         logros: [],
         mapa: ["Vega Serena"],
         actosCompletados: []
