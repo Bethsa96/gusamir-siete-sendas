@@ -53,7 +53,7 @@ El bosque parece estar poniendo a prueba su curiosidad de una forma bastante poc
             {
                 texto: "Lamer la seta",
                 accion: () => {
-                    estado.energia -= 10;
+                    gastarEnergia(10);
                 },
                 siguiente: "acto3_seta_lamida"
             }
@@ -535,7 +535,7 @@ Ahora solo queda encontrar otro camino.`,
                 texto: "Tomar la ruta larga",
                 accion: () => {
                     avanzarTiempo(2);
-                    estado.energia -= 10;
+                    gastarEnergia(10);
                 },
                 siguiente: "acto3_ruta_larga"
             }
@@ -563,7 +563,7 @@ El silencio responde por él.`,
                 texto: "Continuar por cuenta propia",
                 accion: () => {
                     avanzarTiempo(2);
-                    estado.energia -= 10;
+                    gastarEnergia(10);
                 },
                 siguiente: "acto3_ruta_larga"
             }
@@ -584,7 +584,7 @@ El bosque tarda bastante en perdonar esa decisión.`,
                 texto: "Continuar por la ruta larga",
                 accion: () => {
                     avanzarTiempo(2);
-                    estado.energia -= 10;
+                    gastarEnergia(10);
                 },
                 siguiente: "acto3_ruta_larga"
             }
@@ -641,7 +641,7 @@ Brumli susurra:
                 texto: "Volver al camino conocido",
                 accion: () => {
                     avanzarTiempo(2);
-                    estado.energia -= 10;
+                    gastarEnergia(10);
                 },
                 siguiente: "acto3_ruta_larga"
             }
@@ -699,7 +699,7 @@ Brumli tropieza tres veces.
                 texto: "Llegar al claro oculto",
                 accion: () => {
                     avanzarTiempo(1);
-                    estado.energia -= 5;
+                    gastarEnergia(5);
                     registrarEvento("saltarina_guiando_acto3");
                 },
                 siguiente: "acto3_claro_oculto"
@@ -1119,7 +1119,7 @@ Brumli observa el paso.
         {
             texto: "Cruzar el paso estrecho",
             accion: () => {
-                estado.energia -= 5;
+                gastarEnergia(5);
                 registrarEvento("atajo_saltarina_montana");
             },
             siguiente: "acto3b_mirador"
@@ -1146,7 +1146,7 @@ No lo consigue.`,
         {
             texto: "Continuar contra el viento",
             accion: () => {
-                estado.energia -= 10;
+                gastarEnergia(10);
                 avanzarTiempo(1);
             },
             siguiente: "acto3b_mirador"
@@ -1178,7 +1178,7 @@ Brumli asiente.
         {
             texto: "Descansar un momento",
             accion: () => {
-                estado.energia += 10;
+                recuperarEnergia(10);
                 avanzarTiempo(1);
             },
             siguiente: "acto3b_mirador"

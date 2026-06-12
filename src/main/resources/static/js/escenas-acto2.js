@@ -241,7 +241,7 @@ Pero su dignidad sí está herida.`,
             {
                 texto: "Aceptar las consecuencias",
                 accion: () => {
-                    estado.energia -= 15;
+                    gastarEnergia(15);
                     desbloquearLogro("Resaca legendaria");
                     avanzarTiempo(1);
                 },
@@ -605,7 +605,7 @@ No muere, pero desbloquea una importante lección sobre proporciones.`,
             {
                 texto: "Volver al puente con menos orgullo",
                 accion: () => {
-                    estado.energia -= 20;
+                    gastarEnergia(20);
                     desbloquearLogro("Estrategia cuestionable");
                     avanzarTiempo(1);
                 },
@@ -629,7 +629,7 @@ Cuando por fin encuentra un paso entre las colinas, el sol ha cambiado de posici
             {
                 texto: "Continuar tras el rodeo",
                 accion: () => {
-                    estado.energia -= 10;
+                    gastarEnergia(10);
                     avanzarTiempo(2);
                 },
                 siguiente: "acto2_despues_puente"
@@ -751,7 +751,7 @@ Debajo, alguien ha añadido:
                 texto: "Acampar antes de entrar",
                 accion: () => {
                     avanzarHastaNoche();
-                    estado.energia += 20;
+                    recuperarEnergia(20);
                 },
                 siguiente: "acto2_campamento_noche"
             },
@@ -782,6 +782,7 @@ Como si evaluara si ha aprendido algo.`,
                 texto: "Saludar a la cabra gris desde lejos",
                 accion: () => {
                     estado.vinculo += 1;
+                    marcarLugarSeguro("acto2_campamento_noche");
                     agregarEntradaDiario(
                         "La cabra gris vuelve",
                         "He visto de nuevo a la cabra gris. No sé si me sigue, me guía o simplemente juzga mis decisiones desde una colina."
@@ -791,6 +792,9 @@ Como si evaluara si ha aprendido algo.`,
             },
             {
                 texto: "Ignorar la cabra y dormir",
+                accion: () => {
+                    marcarLugarSeguro("acto2_campamento_noche");
+                },
                 siguiente: "acto2_fin_preparacion"
             }
         ]
@@ -814,7 +818,8 @@ Quizá el bosque prefiere que sus visitantes descansen primero.`,
                 texto: "Aceptar la indirecta y acampar",
                 accion: () => {
                     avanzarHastaNoche();
-                    estado.energia += 20;
+                    recuperarEnergia(20);
+                    marcarLugarSeguro("acto2_campamento_noche");
                 },
                 siguiente: "acto2_campamento_noche"
             }

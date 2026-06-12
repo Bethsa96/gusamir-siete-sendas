@@ -186,7 +186,7 @@ Pero Gusamir sospecha que cruzar praderas con el estómago vacío es una forma e
             },
             {
                 texto: "Salir sin desayunar",
-                accion: () => estado.energia -= 10,
+                accion: () => gastarEnergia(10),
                 siguiente: "acto1_salir_casa"
             }
         ]
@@ -260,7 +260,7 @@ También podría ser una advertencia de la naturaleza.`,
             {
                 texto: "Lamer la piedra",
                 accion: () => {
-                    estado.energia -= 10;
+                    gastarEnergia(10);
                     desbloquearLogro("Gastronomía cuestionable");
                     avanzarTiempo(1);
                 },
@@ -307,7 +307,7 @@ La Aldea del Primer Sol espera al final del camino.`,
             {
                 texto: "Descansar bajo un árbol antes de seguir",
                 accion: () => {
-                    estado.energia += 10;
+                    recuperarEnergia(10);
                     avanzarHastaNoche();
                 },
                 siguiente: "acto1_llegada_aldea_tarde"
@@ -434,7 +434,7 @@ Gusamir recupera algo de energía.`,
         opciones: [
             {
                 texto: "Acercarse al hombre de la túnica oscura",
-                accion: () => estado.energia += 10,
+                accion: () => recuperarEnergia(10),
                 siguiente: "acto1_vorian"
             }
         ]

@@ -1,7 +1,35 @@
+const escenasSistema = {
+    agotamiento: {
+        titulo: "Agotamiento",
+        texto: `Las piernas de Gusamir fallan.
+
+El mundo se inclina.
+
+Durante un instante cree escuchar a Brumli decir:
+
+"Eso pasa por no comer."
+
+Cuando despierta, ha pasado un día.
+
+No ha sido una derrota.
+
+Pero el camino ha seguido avanzando sin él.`,
+        opciones: [
+            {
+                texto: "Reincorporarse y continuar",
+                accion: () => guardarPartida(),
+                siguiente: () => estado.ultimoLugarSeguro
+            }
+        ]
+    }
+};
+
 const escenas = {
+    ...escenasSistema,
     ...escenasActo1,
     ...escenasActo2,
-    ...escenasActo3
+    ...escenasActo3,
+    ...escenasActo4
 };
 
 function nuevaPartida() {
@@ -65,7 +93,12 @@ function cargarEscena(idEscena) {
             }
 
             if (opcion.siguiente) {
-                cargarEscena(opcion.siguiente);
+                const siguienteEscena =
+                        typeof opcion.siguiente === "function"
+                        ? opcion.siguiente()
+                        : opcion.siguiente;
+
+                cargarEscena(siguienteEscena);
             }
         };
 
@@ -211,6 +244,14 @@ function mostrarSubmenu(tipo) {
             } else {
                 estado.inventario.forEach(objeto => {
                     html += `<p>• ${objeto}</p>`;
+
+                    if (consumibles[objeto]) {
+                        html += `
+                    <button onclick="usarConsumible('${objeto}')">
+                        ${consumibles[objeto].texto}
+                    </button>
+                `;
+                    }
                 });
             }
 
@@ -306,6 +347,13 @@ function avanzarHastaNoche() {
     }
 }
 
+function avanzarHastaTarde() {
+
+    while (estado.periodo !== "Tarde") {
+        avanzarTiempo(1);
+    }
+}
+
 function dormirHastaMananaSiguiente() {
     estado.dia++;
     estado.periodo = "Mañana";
@@ -328,4 +376,87 @@ function registrarEvento(nombre) {
 
 function tieneEvento(nombre) {
     return estado.eventos && estado.eventos.includes(nombre);
+}
+
+function cambiarEnergia(cantidad) {
+    estado.energia += cantidad;
+
+    if (estado.energia > 100) {
+        estado.energia = 100;
+    }
+
+    if (estado.energia <= 0) {
+        estado.energia = 0;
+        activarAgotamiento();
+        return;
+    }
+}
+
+function recuperarEnergia(cantidad) {
+    cambiarEnergia(cantidad);
+}
+
+function gastarEnergia(cantidad) {
+    cambiarEnergia(-cantidad);
+}
+
+function activarAgotamiento() {
+    estado.dia++;
+    estado.periodo = "Mañana";
+    estado.puntosPeriodo = 0;
+    estado.energia = 50;
+
+    agregarEntradaDiario(
+        "Agotamiento",
+        "Gusamir agotó por completo sus fuerzas. Despertó más tarde, con la sensación de que el camino no perdona a quien olvida descansar."
+    );
+
+    guardarPartida();
+
+    cargarEscena("agotamiento");
+}
+
+function marcarLugarSeguro(idEscena) {
+    estado.ultimoLugarSeguro = idEscena;
+}
+
+const consumibles = {
+    "Pan de viaje": {
+        texto: "Comer pan de viaje",
+        energia: 15,
+        reemplazo: null
+    },
+    "Queso curado": {
+        texto: "Comer queso curado",
+        energia: 20,
+        reemplazo: null
+    },
+    "Manzana roja": {
+        texto: "Comer manzana roja",
+        energia: 10,
+        reemplazo: null
+    },
+    "Cantimplora llena": {
+        texto: "Beber agua",
+        energia: 15,
+        reemplazo: "Cantimplora vacía"
+    }
+};
+
+function usarConsumible(nombre) {
+    const consumible = consumibles[nombre];
+
+    if (!consumible) {
+        return;
+    }
+
+    quitarObjeto(nombre);
+    recuperarEnergia(consumible.energia);
+
+    if (consumible.reemplazo) {
+        agregarObjeto(consumible.reemplazo);
+    }
+
+    guardarPartida();
+    mostrarSubmenu("inventario");
 }

@@ -12,6 +12,7 @@ function crearEstadoInicial() {
         cartas: [],
         diario: [],
         eventos: [],
+        ultimoLugarSeguro: "acto1_inicio",
         logros: [],
         mapa: ["Vega Serena"],
         actosCompletados: []
