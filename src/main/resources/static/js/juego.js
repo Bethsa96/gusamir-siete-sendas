@@ -30,7 +30,8 @@ const escenas = {
     ...escenasActo2,
     ...escenasActo3,
     ...escenasActo4,
-    ...escenasActo5
+    ...escenasActo5,
+    ...escenasActo6
 };
 
 function nuevaPartida() {
@@ -375,6 +376,17 @@ function avanzarHastaTarde() {
     }
 }
 
+function avanzarHastaManana() {
+    while (estado.periodo !== "Mañana") {
+        avanzarTiempo(1);
+    }
+}
+
+function dormirEnTabernaHastaManana() {
+    dormirHastaMananaSiguiente();
+    recuperarEnergia(50);
+}
+
 function dormirHastaMananaSiguiente() {
     estado.dia++;
     estado.periodo = "Mañana";
@@ -486,4 +498,11 @@ function usarConsumible(nombre) {
 
 function aumentarVentajaVorian(cantidad) {
     estado.vorianVentaja += cantidad;
+}
+
+function preparativosTrigesimoCompletos() {
+    return tieneObjeto("Pastel de miel") &&
+           tieneObjeto("Globo Escarlata") &&
+           tieneObjeto("Vela azul") &&
+           tieneObjeto("Vela roja");
 }

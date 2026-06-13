@@ -7,6 +7,8 @@ function crearEstadoInicial() {
         energia: 80,
         valor: 0,
         vinculo: 0,
+        edad: 29,
+        trigesimoInviernoCelebrado: false,
         inventario: [],
         flores: [],
         cartas: [],
