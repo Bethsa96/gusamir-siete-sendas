@@ -1231,7 +1231,6 @@ Incluso Saltarina parece esperar la respuesta.`,
                 texto: "Busco la siguiente aventura",
                 accion: () => {
                     estado.valor += 1;
-                    estado.vinculo += 1;
                 },
                 siguiente: "acto6_respuesta_correcta"
             }

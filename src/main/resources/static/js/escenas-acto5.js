@@ -354,7 +354,6 @@ Brumli murmura:
                 condicion: () => tieneObjeto("Campanilla antigua"),
                 accion: () => {
                     registrarEvento("pedestal_campana_activado");
-                    estado.vinculo += 1;
                 },
                 siguiente: "acto5_campana_activada"
             },
@@ -399,7 +398,6 @@ Algunas recuerdan por qué los recorremos."`,
                 condicion: () => estado.flores.length > 0,
                 accion: () => {
                     registrarEvento("pedestal_flor_activado");
-                    estado.vinculo += 1;
                 },
                 siguiente: "acto5_flor_activada"
             },

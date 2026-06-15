@@ -313,7 +313,6 @@ Tras un silencio incómodo, añade:
                 texto: "Ayudarle igualmente",
                 accion: () => {
                     estado.valor += 1;
-                    estado.vinculo += 1;
                 },
                 siguiente: "acto3_ayudar_brumli"
             }
@@ -929,7 +928,7 @@ Brumli se cruza de brazos.
                 accion: () => {
                     estado.vinculo += 1;
 
-                    if (estado.vinculo >= 6) {
+                    if (estado.vinculo >= 10) {
                         desbloquearLogro("Amigo de las cabras");
                     }
                 },
@@ -1340,7 +1339,6 @@ Brumli se cruza de brazos.
     opciones: [
         {
             texto: "Aceptar que Saltarina quiere enseñar algo",
-            accion: () => estado.vinculo += 1,
             siguiente: "acto3b_saltarina_senal"
         }
     ]

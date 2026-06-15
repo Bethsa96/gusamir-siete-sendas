@@ -126,6 +126,7 @@ Y el tiempo, como siempre, parece estar del lado de Vorian.`,
                             aumentarVentajaVorian(tiempo);
                             establecerUbicacion(zona);
                             marcarLugarSeguro(destinosViaje[zona].escena);
+                            gastarEnergia(tiempo * 3);
                         },
                         siguiente: destinosViaje[zona].escena
                     });
@@ -208,7 +209,7 @@ Debajo de la cama sigue habiendo polvo, pelusas y una moneda antigua que quizá 
             {
                 texto: "Descansar un rato",
                 accion: () => {
-                    recuperarEnergia(30);
+                    recuperarEnergia(10);
                     avanzarTiempo(2);
                 },
                 siguiente: "viaje_casa_gusamir"
@@ -336,7 +337,17 @@ Todavía no hay nada aquí que Gusamir entienda como parte de una misión mayor.
     viaje_taberna_aldea: {
         titulo: "Taberna del Alba",
         texto: () => {
-            if (estado.trigesimoInviernoCelebrado || tieneEvento("pista_trigesimo_invierno")) {
+            if (estado.trigesimoInviernoCelebrado) {
+                return `La Taberna del Alba está más tranquila después de la celebración.
+
+Quedan restos de pastel, alguna vela consumida y una sensación extraña de haber cruzado una puerta invisible.
+
+Brumli está sentado en una mesa, recuperándose de su propia canción.
+
+Saltarina ocupa el mejor sitio sin pedir permiso.`;
+            }
+
+            if (tieneEvento("pista_trigesimo_invierno")) {
                 return `La Taberna del Alba huele a pan caliente y secretos antiguos.
 
 El tabernero limpia una jarra.
@@ -353,8 +364,13 @@ Lo cual, considerando el viaje, resulta casi ofensivo.`;
         opciones: [
             {
                 texto: "Preguntar por el Trigésimo Invierno",
-                condicion: () => estado.trigesimoInviernoCelebrado || tieneEvento("pista_trigesimo_invierno"),
+                condicion: () => !estado.trigesimoInviernoCelebrado && tieneEvento("pista_trigesimo_invierno"),
                 siguiente: "acto6_mision_cumple"
+            },
+            {
+                texto: "Reunirte con Brumli y Saltarina",
+                condicion: () => estado.trigesimoInviernoCelebrado,
+                siguiente: "acto6_post_celebracion"
             },
             {
                 texto: "Descansar en la taberna",
@@ -668,7 +684,7 @@ La ilustración de Bethriel y Saltarina aún cuelga en la pared.`,
             {
                 texto: "Descansar en el refugio",
                 accion: () => {
-                    recuperarEnergia(40);
+                    recuperarEnergia(20);
                     avanzarTiempo(3);
                     marcarLugarSeguro("viaje_refugio_saltarina");
                 },

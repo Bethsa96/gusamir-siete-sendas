@@ -32,13 +32,18 @@ const escenas = {
     ...escenasActo4,
     ...escenasActo5,
     ...escenasActo6,
-    ...escenasViaje
+    ...escenasViaje,
+    ...escenasActo7
 };
 
 function nuevaPartida() {
+    const logrosGlobales =
+            JSON.parse(localStorage.getItem("gusamir_logros")) || [];
+
     localStorage.removeItem("gusamir_partida");
 
     estado = crearEstadoInicial();
+    estado.logros = logrosGlobales;
 
     mostrarJuego();
     cargarEscena("acto1_inicio");
@@ -209,6 +214,7 @@ function completarActo(nombre) {
 function desbloquearLogro(nombre) {
     if (!estado.logros.includes(nombre)) {
         estado.logros.push(nombre);
+        localStorage.setItem("gusamir_logros", JSON.stringify(estado.logros));
         alert("Logro desbloqueado: " + nombre);
     }
 }
@@ -258,6 +264,12 @@ function mostrarLogros() {
 function abrirMenuJuego() {
     document.getElementById("zona-juego").classList.add("oculto");
     document.getElementById("menu-juego").classList.remove("oculto");
+    
+    const botonViajar = document.getElementById("boton-viajar");
+
+    if (botonViajar) {
+        botonViajar.style.display = estado.viajeBloqueado ? "none" : "block";
+    }
 
     mostrarSubmenu("estado");
 }
@@ -314,7 +326,7 @@ function mostrarSubmenu(tipo) {
 
         case "flores":
             html = "<h3>🌸 Flores de Bethriel</h3>";
-            html += `<p>${estado.flores.length}/7 encontradas</p>`;
+            html += `<p>${estado.flores.length}/6 encontradas</p>`;
 
             if (estado.flores.length === 0) {
                 html += "<p>No has encontrado flores.</p>";
@@ -402,7 +414,7 @@ function avanzarHastaManana() {
 
 function dormirEnTabernaHastaManana() {
     dormirHastaMananaSiguiente();
-    recuperarEnergia(50);
+    recuperarEnergia(35);
 }
 
 function dormirHastaMananaSiguiente() {
@@ -531,6 +543,11 @@ function establecerUbicacion(zona) {
 }
 
 function abrirMapaViaje() {
+    if (estado.viajeBloqueado) {
+        alert("La Séptima Senda ya no permite volver atrás.");
+        return;
+    }
+    
     cerrarMenuJuego();
     cargarEscena("viaje_mapa");
 }
@@ -543,4 +560,18 @@ function continuarHistoriaDesde(zona) {
 function continuarHistoria() {
     estado.ubicacionActual = estado.ubicacionHistoriaActual;
     cargarEscena(estado.escenaHistoriaActual);
+}
+
+function revisarLogrosColeccion() {
+    if (estado.cartas && estado.cartas.length >= 7) {
+        desbloquearLogro("Cartero honorario");
+    }
+
+    if (estado.flores && estado.flores.length >= 7) {
+        desbloquearLogro("Florista aficionado");
+    }
+}
+
+function puedeSaltarinaSerBlanca() {
+    return estado.vinculo >= 20;
 }

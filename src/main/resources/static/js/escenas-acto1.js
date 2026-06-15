@@ -463,7 +463,6 @@ Hace una pausa.
                 texto: "Responder con respeto",
                 accion: () => {
                     estado.valor += 1;
-                    estado.vinculo += 1;
                 },
                 siguiente: "acto1_vorian_respeto"
             },

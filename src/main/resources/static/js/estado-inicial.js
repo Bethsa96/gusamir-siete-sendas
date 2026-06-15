@@ -9,6 +9,7 @@ function crearEstadoInicial() {
         vinculo: 0,
         edad: 29,
         trigesimoInviernoCelebrado: false,
+        viajeBloqueado: false,
         inventario: [],
         flores: [],
         cartas: [],

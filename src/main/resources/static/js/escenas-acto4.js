@@ -17,7 +17,6 @@ Brumli baja la voz.
                 texto: "Seguir a Saltarina",
                 accion: () => {
                     avanzarTiempo(1);
-                    estado.vinculo += 1;
                     establecerUbicacion("Paso de la Cabra Gris");
                 },
                 siguiente: "acto4_sendero_cabra"
@@ -435,7 +434,6 @@ Brumli mira a Gusamir.
             },
             {
                 texto: "Preguntar a Saltarina qué quiere",
-                accion: () => estado.vinculo += 1,
                 siguiente: "acto4_preguntar_saltarina"
             }
         ]
@@ -460,7 +458,6 @@ Saltarina no parece impresionada.`,
             {
                 texto: "Aceptar la indirecta y esperar",
                 accion: () => {
-                    estado.vinculo += 1;
                     avanzarTiempo(3);
                 },
                 siguiente: "acto4_puerta_esperar"
@@ -487,7 +484,6 @@ Puede que ambas.`,
             {
                 texto: "Sentarse y esperar con ella",
                 accion: () => {
-                    estado.vinculo += 1;
                     avanzarTiempo(3);
                 },
                 siguiente: "acto4_puerta_esperar"
@@ -565,7 +561,6 @@ Brumli no hace bromas esta vez.`,
             {
                 texto: "Permanecer en silencio",
                 accion: () => {
-                    estado.vinculo += 1;
                     agregarEntradaDiario(
                         "La piedra blanca",
                         "La piedra decía que la Guardiana Gris no protege un lugar, sino a quienes aún tienen camino. Saltarina parecía entenderlo mejor que nadie."
