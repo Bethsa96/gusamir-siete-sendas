@@ -22,6 +22,7 @@ La Primera Senda comienza más allá de la aldea.`,
                 accion: () => {
                     descubrirMapa("Llanuras del Alba");
                     avanzarTiempo(1);
+                    establecerUbicacion("Llanuras del Alba");
                 },
                 siguiente: "acto2_llegada_llanuras"
             }
@@ -58,6 +59,7 @@ Eso ya es más que muchos aventureros.`,
                 accion: () => {
                     descubrirMapa("Llanuras del Alba");
                     avanzarTiempo(1);
+                    establecerUbicacion("Llanuras del Alba");
                 },
                 siguiente: "acto2_llegada_llanuras"
             }
@@ -89,6 +91,7 @@ Es uno de esos consejos que no deberían ser necesarios, pero aparentemente lo s
                 accion: () => {
                     descubrirMapa("Llanuras del Alba");
                     avanzarTiempo(1);
+                    establecerUbicacion("Llanuras del Alba");
                 },
                 siguiente: "acto2_llegada_llanuras"
             }
@@ -132,7 +135,10 @@ Eso suena bastante a Bethriel.`,
             { texto: "Abrir el cofre", siguiente: "acto2_cofre_roca" },
             {
                 texto: "Ignorar el cofre y volver al camino",
-                accion: () => avanzarTiempo(1),
+                accion: () => {
+                    avanzarTiempo(1);
+                    establecerUbicacion("Llanuras del Alba");
+                },
                 siguiente: "acto2_llegada_llanuras"
             }
         ]
@@ -166,6 +172,7 @@ También hay una nota pequeña:
                         "He encontrado una cuerda élfica. Bethriel parece convencida de que habrá barrancos. No sé si eso debería preocuparme."
                     );
                     avanzarTiempo(1);
+                    establecerUbicacion("Llanuras del Alba");
                 },
                 siguiente: "acto2_llegada_llanuras"
             }
@@ -190,7 +197,10 @@ La olla parece devolverle la mirada.`,
             { texto: "Probar lo de la olla", siguiente: "acto2_olla" },
             {
                 texto: "Volver a las llanuras",
-                accion: () => avanzarTiempo(1),
+                accion: () => {
+                    avanzarTiempo(1);
+                    establecerUbicacion("Llanuras del Alba");
+                },
                 siguiente: "acto2_llegada_llanuras"
             }
         ]
@@ -294,7 +304,9 @@ Gusamir asiente.
             { texto: "Hablar con el orco", siguiente: "acto2_orco_hablar" },
             { texto: "Intentar intimidarlo", siguiente: "acto2_orco_intimidar" },
             { texto: "Ofrecerle comida", siguiente: "acto2_orco_comida" },
-            { texto: "Retroceder lentamente", siguiente: "acto2_llegada_llanuras" }
+            { texto: "Retroceder lentamente",
+                accion: () => establecerUbicacion("Llanuras del Alba"),
+                siguiente: "acto2_llegada_llanuras"}
         ]
     },
 

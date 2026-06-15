@@ -18,15 +18,19 @@ Debajo, alguien ha escrito:
                 accion: () => {
                     descubrirMapa("Bosque de los Dos Guardianes");
                     agregarEntradaDiario(
-                        "Entrada al bosque",
-                        "He entrado en el Bosque de los Dos Guardianes. El cartel decía que no entrara si no sabía escuchar. He decidido fingir confianza."
-                    );
+                            "Entrada al bosque",
+                            "He entrado en el Bosque de los Dos Guardianes. El cartel decía que no entrara si no sabía escuchar. He decidido fingir confianza."
+                            );
+                    establecerUbicacion("Bosque de los Dos Guardianes");
                 },
                 siguiente: "acto3_cruce_senderos"
             },
             {
                 texto: "Revisar el borde del bosque antes de entrar",
-                accion: () => avanzarTiempo(1),
+                accion: () => {
+                    avanzarTiempo(1);
+                    establecerUbicacion("Bosque de los Dos Guardianes");
+                },
                 siguiente: "acto3_borde_bosque"
             }
         ]

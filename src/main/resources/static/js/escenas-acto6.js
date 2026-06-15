@@ -22,12 +22,16 @@ Brumli mira hacia arriba.
                 accion: () => {
                     descubrirMapa("Torre del Eco Perdido");
                     avanzarTiempo(1);
+                    establecerUbicacion("Torre del Eco Perdido");
                 },
                 siguiente: "acto6_entrada_torre"
             },
             {
                 texto: "Rodear la torre antes de entrar",
-                accion: () => avanzarTiempo(1),
+                accion: () => {
+                    avanzarTiempo(1);
+                    establecerUbicacion("Torre del Eco Perdido");
+                },
                 siguiente: "acto6_rodear_torre"
             }
         ]
@@ -303,6 +307,7 @@ Brumli se lleva una mano a la cara.
                     avanzarTiempo(6);
                     descubrirMapa("Aldea del Primer Sol");
                     marcarLugarSeguro("acto6_aldea_regreso");
+                    establecerUbicacion("Aldea del Primer Sol");
                 },
                 siguiente: "acto6_aldea_regreso"
             }
@@ -330,33 +335,47 @@ El tabernero ve entrar a Gusamir y sonríe como si llevara días esperando este 
 
     acto6_mision_cumple: {
         titulo: "Preparativos del Trigésimo Invierno",
-        texto: `El tabernero enumera con solemnidad:
+        texto: () => {
+            if (estado.trigesimoInviernoCelebrado) {
+                return `El Trigésimo Invierno ya ha sido celebrado.
+
+La taberna conserva restos de pastel, velas consumidas y una cantidad importante de vergüenza pública.
+
+Ya no queda nada que preparar.
+
+Solo decidir cuándo regresar a la Torre del Eco Perdido.`;
+            }
+
+            return `El tabernero enumera con solemnidad:
 
 "Para celebrar un Trigésimo Invierno hacen falta cuatro cosas."
 
 "Velas."
 
 "Algo dulce."
-        
+
 "Decoración de fiesta."
 
 "Y una cantidad razonable de vergüenza pública."
 
 Brumli sonríe.
 
-"Por fin una misión sensata."`,
+"Por fin una misión sensata."`;
+        },
         opciones: [
             {
                 texto: "Ir a la plaza a buscar preparativos",
+                condicion: () => !estado.trigesimoInviernoCelebrado,
                 siguiente: "acto6_plaza_aldea"
             },
             {
                 texto: "Revisar las velas",
+                condicion: () => !estado.trigesimoInviernoCelebrado,
                 siguiente: "acto6_revisar_velas"
             },
             {
                 texto: "Preparar la celebración",
-                condicion: () => preparativosTrigesimoCompletos(),
+                condicion: () => preparativosTrigesimoCompletos() && !estado.trigesimoInviernoCelebrado,
                 siguiente: "acto6_mision_lista"
             },
             {
@@ -369,6 +388,11 @@ Brumli sonríe.
                 condicion: () => estado.periodo !== "Mañana",
                 accion: () => dormirEnTabernaHastaManana(),
                 siguiente: "acto6_mision_cumple"
+            },
+            {
+                texto: "Volver con Brumli y Saltarina",
+                condicion: () => estado.trigesimoInviernoCelebrado,
+                siguiente: "acto6_post_celebracion"
             }
         ]
     },
@@ -947,7 +971,7 @@ Ahora pueden prepararse antes de regresar a la Torre del Eco Perdido.`,
             },
             {
                 texto: "Ir a la plaza",
-                siguiente: "acto6_plaza_aldea"
+                siguiente: "acto6_plaza_post_celebracion"
             },
             {
                 texto: "Hablar con Brumli y Saltarina para regresar a la torre",
@@ -971,6 +995,127 @@ Ahora pueden prepararse antes de regresar a la Torre del Eco Perdido.`,
             {
                 texto: "Volver con el grupo",
                 siguiente: "acto6_post_celebracion"
+            }
+        ]
+    },
+
+    acto6_plaza_post_celebracion: {
+        titulo: "Plaza de la Aldea del Primer Sol",
+        texto: `La plaza sigue activa después de la celebración.
+
+Algunos vecinos comentan la canción de Brumli.
+
+Otros prefieren fingir que no la escucharon.
+
+La panadería, el puesto de provisiones y el mercader viajero siguen en sus lugares habituales según la hora.
+
+Gusamir puede prepararse antes de regresar a la Torre del Eco Perdido.`,
+        opciones: [
+            {
+                texto: "Entrar en la panadería",
+                condicion: () => estado.periodo === "Mañana",
+                siguiente: "acto6_panaderia_post"
+            },
+            {
+                texto: "Ir al puesto de provisiones",
+                siguiente: "acto6_puesto_provisiones_post"
+            },
+            {
+                texto: "Hablar con el mercader viajero",
+                condicion: () => estado.periodo === "Tarde",
+                siguiente: "acto6_mercader_post"
+            },
+            {
+                texto: "Volver a la taberna",
+                siguiente: "acto6_post_celebracion"
+            }
+        ]
+    },
+
+    acto6_panaderia_post: {
+        titulo: "Panadería del Primer Sol",
+        texto: `La panadera sonríe al ver a Gusamir.
+
+"Ya no quedan pasteles ceremoniales."
+
+"Pero pan para el camino sí."
+
+Brumli asiente.
+
+"El pan no canta. Eso ya lo hace mejor que yo."`,
+        opciones: [
+            {
+                texto: "Comprar pan de viaje",
+                accion: () => agregarObjeto("Pan de viaje"),
+                siguiente: "acto6_plaza_post_celebracion"
+            },
+            {
+                texto: "Volver a la plaza",
+                siguiente: "acto6_plaza_post_celebracion"
+            }
+        ]
+    },
+
+    acto6_puesto_provisiones_post: {
+        titulo: "Puesto de provisiones",
+        texto: `El puesto sigue abierto.
+
+Hay manzanas, queso, pan y agua fresca.
+
+La tendera mira a Saltarina.
+
+"¿También compra?"
+
+Brumli responde:
+
+"No. Ella ordena."`,
+        opciones: [
+            {
+                texto: "Comprar manzana roja",
+                accion: () => agregarObjeto("Manzana roja"),
+                siguiente: "acto6_plaza_post_celebracion"
+            },
+            {
+                texto: "Comprar queso curado",
+                accion: () => agregarObjeto("Queso curado"),
+                siguiente: "acto6_plaza_post_celebracion"
+            },
+            {
+                texto: "Rellenar cantimplora",
+                condicion: () => tieneObjeto("Cantimplora vacía"),
+                accion: () => {
+                    quitarObjeto("Cantimplora vacía");
+                    agregarObjeto("Cantimplora llena");
+                },
+                siguiente: "acto6_plaza_post_celebracion"
+            },
+            {
+                texto: "Volver a la plaza",
+                siguiente: "acto6_plaza_post_celebracion"
+            }
+        ]
+    },
+
+    acto6_mercader_post: {
+        titulo: "Mercader viajero",
+        texto: `El mercader viajero sigue recogiendo objetos extraños.
+
+"Ya vendí el Globo Escarlata."
+
+"Una pieza magnífica. Muy roja. Muy flotante."
+
+Brumli murmura:
+
+"Gran descripción comercial."`,
+        opciones: [
+            {
+                texto: "Comprar una manzana sospechosamente brillante",
+                accion: () => agregarObjeto("Manzana sospechosamente brillante"),
+                siguiente: "acto6_plaza_post_celebracion"
+            },
+            {
+                texto: "Volver a la plaza",
+                siguiente: "acto6_plaza_post_celebracion"
             }
         ]
     },

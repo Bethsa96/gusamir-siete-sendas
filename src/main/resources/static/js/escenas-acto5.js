@@ -22,12 +22,16 @@ Brumli observa el lugar.
                 accion: () => {
                     descubrirMapa("Ruinas del Valle Rojo");
                     avanzarTiempo(1);
+                    establecerUbicacion("Ruinas del Valle Rojo");
                 },
                 siguiente: "acto5_arco_principal"
             },
             {
                 texto: "Rodear las ruinas y buscar otra entrada",
-                accion: () => avanzarTiempo(2),
+                accion: () => {
+                    avanzarTiempo(2);
+                    establecerUbicacion("Ruinas del Valle Rojo");
+                },
                 siguiente: "acto5_entrada_lateral"
             }
         ]

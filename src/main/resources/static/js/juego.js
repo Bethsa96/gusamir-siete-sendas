@@ -31,7 +31,8 @@ const escenas = {
     ...escenasActo3,
     ...escenasActo4,
     ...escenasActo5,
-    ...escenasActo6
+    ...escenasActo6,
+    ...escenasViaje
 };
 
 function nuevaPartida() {
@@ -65,6 +66,10 @@ function cargarEscena(idEscena) {
     }
 
     estado.escenaActual = idEscena;
+    if (!idEscena.startsWith("viaje_") && idEscena !== "viaje_mapa" && idEscena !== "agotamiento") {
+        estado.escenaHistoriaActual = idEscena;
+        estado.ubicacionHistoriaActual = estado.ubicacionActual;
+    }
     guardarPartida();
 
     document.getElementById("titulo-escena").textContent = escena.titulo;
@@ -76,7 +81,12 @@ function cargarEscena(idEscena) {
     const opcionesDiv = document.getElementById("opciones");
     opcionesDiv.innerHTML = "";
 
-    escena.opciones.forEach(opcion => {
+    const opcionesEscena =
+            typeof escena.opciones === "function"
+            ? escena.opciones()
+            : escena.opciones;
+
+    opcionesEscena.forEach(opcion => {
         if (opcion.condicion && !opcion.condicion()) {
             return;
         }
@@ -93,6 +103,11 @@ function cargarEscena(idEscena) {
 
             if (estado.agotado) {
                 cargarEscena("agotamiento");
+                return;
+            }
+
+            if (opcion.volverMenuAventura) {
+                abrirMenuJuego();
                 return;
             }
 
@@ -320,6 +335,9 @@ function mostrarSubmenu(tipo) {
 
             break;
             
+        case "viaje_mapa":
+            html += "<p>Usa 🧭 Viajar para moverte a zonas ya descubiertas.</p>";
+            
         case "diario":
             html = "<h3>📖 Diario de viaje</h3>";
 
@@ -505,4 +523,24 @@ function preparativosTrigesimoCompletos() {
            tieneObjeto("Globo Escarlata") &&
            tieneObjeto("Vela azul") &&
            tieneObjeto("Vela roja");
+}
+
+function establecerUbicacion(zona) {
+    estado.ubicacionActual = zona;
+    descubrirMapa(zona);
+}
+
+function abrirMapaViaje() {
+    cerrarMenuJuego();
+    cargarEscena("viaje_mapa");
+}
+
+function continuarHistoriaDesde(zona) {
+    establecerUbicacion(zona);
+    cargarEscena(estado.escenaHistoriaActual);
+}
+
+function continuarHistoria() {
+    estado.ubicacionActual = estado.ubicacionHistoriaActual;
+    cargarEscena(estado.escenaHistoriaActual);
 }

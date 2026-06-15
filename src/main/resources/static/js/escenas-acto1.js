@@ -304,6 +304,7 @@ La Aldea del Primer Sol espera al final del camino.`,
                 accion: () => {
                     descubrirMapa("Aldea del Primer Sol");
                     avanzarTiempo(2);
+                    establecerUbicacion("Aldea del Primer Sol");
                 },
                 siguiente: "acto1_llegada_aldea"
             },
@@ -312,6 +313,7 @@ La Aldea del Primer Sol espera al final del camino.`,
                 accion: () => {
                     recuperarEnergia(10);
                     avanzarHastaNoche();
+                    establecerUbicacion("Aldea del Primer Sol");
                 },
                 siguiente: "acto1_llegada_aldea_tarde"
             }

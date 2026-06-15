@@ -18,12 +18,16 @@ Brumli baja la voz.
                 accion: () => {
                     avanzarTiempo(1);
                     estado.vinculo += 1;
+                    establecerUbicacion("Paso de la Cabra Gris");
                 },
                 siguiente: "acto4_sendero_cabra"
             },
             {
                 texto: "Observar las paredes del paso",
-                accion: () => avanzarTiempo(1),
+                accion: () => {
+                    avanzarTiempo(1);
+                    establecerUbicacion("Paso de la Cabra Gris");
+                },
                 siguiente: "acto4_paredes"
             }
         ]
