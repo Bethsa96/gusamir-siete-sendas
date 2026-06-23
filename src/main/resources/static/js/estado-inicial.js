@@ -23,6 +23,8 @@ function crearEstadoInicial() {
         vorianVentaja: 0,
         logros: [],
         mapa: ["Vega Serena"],
+        decisionesAbsurdas: 0,
+        cofresAbiertos: 0,
         actosCompletados: []
     };
 }

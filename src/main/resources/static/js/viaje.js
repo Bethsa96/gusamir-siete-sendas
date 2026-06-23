@@ -241,7 +241,7 @@ Pero los cofres pequeños también tienen derecho a decepcionar.`,
                 texto: "Abrir el cofre pequeño",
                 condicion: () => !tieneEvento("cofre_vega_explorado"),
                 accion: () => {
-                    registrarEvento("cofre_vega_explorado");
+                    registrarCofre("cofre_vega_explorado");
                     agregarObjeto("Cuchara sospechosamente normal");
                     agregarEntradaDiario(
                         "Cuchara sospechosa",
@@ -440,7 +440,7 @@ Brumli lo mira.
                 texto: "Guardar el botón dorado",
                 condicion: () => !tieneEvento("cofre_llanuras_explorado"),
                 accion: () => {
-                    registrarEvento("cofre_llanuras_explorado");
+                    registrarCofre("cofre_llanuras_explorado");
                     agregarObjeto("Botón dorado");
                 },
                 siguiente: "viaje_explorar_llanuras"

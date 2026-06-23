@@ -265,6 +265,7 @@ También podría ser una advertencia de la naturaleza.`,
                 accion: () => {
                     gastarEnergia(10);
                     desbloquearLogro("Gastronomía cuestionable");
+                    sumarDecisionAbsurda();
                     avanzarTiempo(1);
                 },
                 siguiente: "acto1_lamer_piedra"

@@ -668,6 +668,7 @@ Pero ayuda a admitir que la necesitas."
 
 — Bethriel`
                     });
+                    registrarCofre("cofre_acto5_final");
                     agregarEntradaDiario(
                             "Vela roja",
                             "He encontrado una vela roja y otra pista sobre una celebración. Empiezo a sospechar que Bethriel lleva tiempo intentando decirme algo bastante evidente."

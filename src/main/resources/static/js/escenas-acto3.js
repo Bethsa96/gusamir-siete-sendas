@@ -82,6 +82,7 @@ Pero el bosque aprende algo sobre Gusamir.`,
                 texto: "Entrar al bosque con la dignidad tocada",
                 accion: () => {
                     desbloquearLogro("Gastronomía cuestionable");
+                    sumarDecisionAbsurda();
                 },
                 siguiente: "acto3_cruce_senderos"
             }
@@ -677,6 +678,7 @@ Brumli abre mucho los ojos.
                 texto: "Confiar en Saltarina",
                 accion: () => {
                     desbloquearLogro("Transporte alternativo");
+                    sumarDecisionAbsurda();
                     estado.vinculo += 2;
                     registrarEvento("saltarina_empujon_acto3");
                     registrarEvento("saltarina_guiando_acto3");
@@ -1041,6 +1043,7 @@ O quizá solo suena para quien debe escucharla.`,
                     "Campanilla antigua",
                     "He encontrado una campanilla que no suena. Brumli dice que los objetos mudos suelen acabar siendo importantes. O inútiles. No ha concretado."
                 );
+                registrarCofre("cofre_acto3_rocas");
             },
             siguiente: "acto3b_sendero_principal"
         }

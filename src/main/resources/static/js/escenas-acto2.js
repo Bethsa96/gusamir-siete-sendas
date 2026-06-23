@@ -173,6 +173,7 @@ También hay una nota pequeña:
                     );
                     avanzarTiempo(1);
                     establecerUbicacion("Llanuras del Alba");
+                    registrarCofre("cofre_acto2_roca");
                 },
                 siguiente: "acto2_llegada_llanuras"
             }
@@ -253,6 +254,7 @@ Pero su dignidad sí está herida.`,
                 accion: () => {
                     gastarEnergia(15);
                     desbloquearLogro("Resaca legendaria");
+                    sumarDecisionAbsurda();
                     avanzarTiempo(1);
                 },
                 siguiente: "acto2_campamento"
@@ -619,6 +621,7 @@ No muere, pero desbloquea una importante lección sobre proporciones.`,
                 accion: () => {
                     gastarEnergia(20);
                     desbloquearLogro("Estrategia cuestionable");
+                    sumarDecisionAbsurda();
                     avanzarTiempo(1);
                 },
                 siguiente: "acto2_orco_hablar"

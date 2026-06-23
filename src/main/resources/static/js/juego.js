@@ -33,7 +33,8 @@ const escenas = {
     ...escenasActo5,
     ...escenasActo6,
     ...escenasViaje,
-    ...escenasActo7
+    ...escenasActo7,
+    ...escenasActo8
 };
 
 function nuevaPartida() {
@@ -203,6 +204,8 @@ function descubrirMapa(nombre) {
     if (!estado.mapa.includes(nombre)) {
         estado.mapa.push(nombre);
     }
+    
+    revisarLogroCartografo();
 }
 
 function completarActo(nombre) {
@@ -574,4 +577,101 @@ function revisarLogrosColeccion() {
 
 function puedeSaltarinaSerBlanca() {
     return estado.vinculo >= 20;
+}
+
+function sumarDecisionAbsurda() {
+    if (!estado.decisionesAbsurdas) {
+        estado.decisionesAbsurdas = 0;
+    }
+
+    estado.decisionesAbsurdas++;
+}
+
+function puedeFinalAbsurdo() {
+    return estado.decisionesAbsurdas >= 5 &&
+           !estado.logros.includes("Final Absurdo");
+}
+
+function puedeFinalTardio() {
+    return estado.vorianVentaja >= 40;
+}
+
+function puedeFinalVerdadero() {
+    return estado.flores.length >= 6 &&
+           estado.cartas.length >= 7 &&
+           tieneEvento("saltarina_blanca");
+}
+
+function puedeFinalBueno() {
+    return tieneEvento("saltarina_blanca") &&
+           (
+               estado.flores.length >= 4 ||
+               estado.cartas.length >= 5
+           );
+}
+
+function todosLosLogrosMenosOctava() {
+    return todosLosLogros
+        .filter(logro => logro !== "La Octava Senda")
+        .every(logro => estado.logros.includes(logro));
+}
+
+function puedeOctavaSenda() {
+    return todosLosLogrosMenosOctava() &&
+           estado.flores.length >= 6 &&
+           estado.cartas.length >= 7 &&
+           !estado.logros.includes("La Octava Senda");
+}
+
+function decidirFinal() {
+
+    if (puedeFinalAbsurdo()) {
+        return "acto8_final_absurdo";
+    }
+    
+    if (puedeFinalTardio() &&
+        !estado.logros.includes("Final Tardío")) {
+
+        return "acto8_final_tardio";
+    }
+
+    if (puedeFinalVerdadero()) {
+        return "acto8_final_verdadero";
+    }
+
+    if (puedeFinalBueno()) {
+        return "acto8_final_bueno";
+    }   
+
+    return "acto8_final_normal";
+}
+
+function revisarLogroCartografo() {
+    const zonas = [
+        "Vega Serena",
+        "Aldea del Primer Sol",
+        "Llanuras del Alba",
+        "Bosque de los Dos Guardianes",
+        "Paso de la Cabra Gris",
+        "Ruinas del Valle Rojo",
+        "Torre del Eco Perdido"
+    ];
+
+    if (zonas.every(z => estado.mapa.includes(z))) {
+        desbloquearLogro("Cartógrafo");
+    }
+}
+
+function registrarCofre(nombreEvento) {
+    registrarEvento(nombreEvento);
+
+    if (!estado.cofresAbiertos) {
+        estado.cofresAbiertos = 0;
+    }
+
+    estado.cofresAbiertos++;
+
+    if (estado.cofresAbiertos >= 4) {
+        desbloquearLogro("Saqueador profesional");
+    }
 }
