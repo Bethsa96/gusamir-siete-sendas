@@ -20,10 +20,6 @@ body {
     text-align: center;
 }
 
-.oculto {
-    display: none;
-}
-
 h1 {
     font-size: 42px;
     margin-bottom: 10px;
@@ -109,4 +105,96 @@ hr {
 
 .entrada-menu p {
     line-height: 1.5;
+}
+
+.portada-juego {
+    min-height: 100vh;
+    background-image: url("../img/portada-gusamir.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border: none;
+    background-color: #111;
+    padding: 0;
+}
+
+.menu-portada {
+    margin-top: 175px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.boton-menu-pixel span {
+    color: #F5E2A9;
+    font-size: 28px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow:
+        2px 2px #3a250f,
+        0 0 2px #000;
+    position: relative;
+    top: -2px;
+}
+
+.boton-menu-pixel:hover{
+    transform:translateY(-2px);
+    filter:brightness(1.08);
+}
+
+.boton-menu-pixel:active{
+    transform:translateY(2px);
+}
+
+.menu-portada .boton-menu-pixel {
+    width: 420px;
+    max-width: none;
+    height: 150px;
+
+    background-image: url("../img/boton-menu.png");
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+
+    padding: 0;
+    margin: -50px auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+}
+
+.menu-portada .boton-menu-pixel:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.08);
+    background-image: url("../img/boton-menu.png");
+}
+
+.menu-portada .boton-menu-pixel:active {
+    transform: translateY(2px);
+}
+
+.boton-menu-pixel:hover{
+
+    transform:translateY(-2px) scale(1.02);
+    filter:
+        brightness(1.15)
+        drop-shadow(0 0 6px rgba(255,220,120,.35));
+}
+
+.oculto {
+    display: none !important;
 }

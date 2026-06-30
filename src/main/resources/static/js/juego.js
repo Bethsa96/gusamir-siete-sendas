@@ -137,7 +137,7 @@ function cargarEscena(idEscena) {
 }
 
 function mostrarJuego() {
-    document.getElementById("menu-principal").classList.add("oculto");
+    document.getElementById("pantalla-inicio").classList.add("oculto");
     document.getElementById("zona-logros").classList.add("oculto");
     document.getElementById("menu-juego").classList.add("oculto");
     document.getElementById("zona-juego").classList.remove("oculto");
@@ -152,7 +152,7 @@ function volverAlMenu() {
     document.getElementById("zona-juego").classList.add("oculto");
     document.getElementById("zona-logros").classList.add("oculto");
     document.getElementById("menu-juego").classList.add("oculto");
-    document.getElementById("menu-principal").classList.remove("oculto");
+    document.getElementById("pantalla-inicio").classList.remove("oculto");
 }
 
 function guardarPartida() {
@@ -242,9 +242,10 @@ function avanzarTiempo(puntos) {
 }
 
 function mostrarLogros() {
-    document.getElementById("menu-principal").classList.add("oculto");
+    document.getElementById("pantalla-inicio").classList.add("oculto");
     document.getElementById("zona-juego").classList.add("oculto");
     document.getElementById("menu-juego").classList.add("oculto");
+    
     document.getElementById("zona-logros").classList.remove("oculto");
 
     const logrosGuardados =

@@ -9,13 +9,20 @@
 
         <main id="pantalla-juego">
 
-            <section id="menu-principal" class="pantalla">
-                <h1>Gusamir y las Siete Sendas</h1>
-                <p class="subtitulo">Una aventura inesperada para quienes aún tienen caminos por recorrer.</p>
+            <section id="pantalla-inicio" class="pantalla portada-juego">
+                <div class="menu-portada">
+                    <button class="boton-menu-pixel" onclick="nuevaPartida()">
+                        <span>Nueva partida</span>
+                    </button>
 
-                <button onclick="nuevaPartida()">Nueva partida</button>
-                <button onclick="continuarPartida()">Continuar</button>
-                <button onclick="mostrarLogros()">Logros</button>
+                    <button class="boton-menu-pixel" onclick="continuarPartida()">
+                        <span>Continuar</span>
+                    </button>
+
+                    <button class="boton-menu-pixel" onclick="mostrarLogros()">
+                        <span>Logros</span>
+                    </button>
+                </div>
             </section>
 
             <section id="zona-juego" class="pantalla oculto">
