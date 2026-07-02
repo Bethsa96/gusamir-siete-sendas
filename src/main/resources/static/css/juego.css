@@ -198,3 +198,32 @@ hr {
 .oculto {
     display: none !important;
 }
+
+.icono-menu {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+.icono-submenu {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+.linea-estado {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 8px 0;
+}
+
+.linea-estado img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+}

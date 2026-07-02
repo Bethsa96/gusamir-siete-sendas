@@ -290,7 +290,7 @@ function mostrarSubmenu(tipo) {
 
     switch (tipo) {
         case "inventario":
-            html = "<h3>🎒 Mochila</h3>";
+            html = `<h3><img class="icono-submenu" src="/aventura/img/iconos/mochila.png" alt=""> Mochila</h3>`;
 
             if (estado.inventario.length === 0) {
                 html += "<p>No llevas nada.</p>";
@@ -311,7 +311,7 @@ function mostrarSubmenu(tipo) {
             break;
 
         case "cartas":
-            html = "<h3>✉️ Cartas de Bethriel</h3>";
+            html = `<h3><img class="icono-submenu" src="/aventura/img/iconos/cartas.png" alt=""> Cartas de Bethriel</h3>`;
 
             if (estado.cartas.length === 0) {
                 html += "<p>No has encontrado cartas.</p>";
@@ -329,7 +329,7 @@ function mostrarSubmenu(tipo) {
             break;
 
         case "flores":
-            html = "<h3>🌸 Flores de Bethriel</h3>";
+            html = `<h3><img class="icono-submenu" src="/aventura/img/iconos/flores.png" alt=""> Flores de Bethriel</h3>`;
             html += `<p>${estado.flores.length}/6 encontradas</p>`;
 
             if (estado.flores.length === 0) {
@@ -343,7 +343,7 @@ function mostrarSubmenu(tipo) {
             break;
 
         case "mapa":
-            html = "<h3>📜 Mapa</h3>";
+            html = `<h3><img class="icono-submenu" src="/aventura/img/iconos/mapa.png" alt=""> Mapa</h3>`;
 
             estado.mapa.forEach(zona => {
                 html += `<p>✓ ${zona}</p>`;
@@ -355,7 +355,7 @@ function mostrarSubmenu(tipo) {
             html += "<p>Usa 🧭 Viajar para moverte a zonas ya descubiertas.</p>";
             
         case "diario":
-            html = "<h3>📖 Diario de viaje</h3>";
+            html = `<h3><img class="icono-submenu" src="/aventura/img/iconos/diario.png" alt=""> Diario de viaje</h3>`;
 
             if (!estado.diario || estado.diario.length === 0) {
                 html += "<p>El diario todavía está vacío.</p>";
@@ -374,14 +374,33 @@ function mostrarSubmenu(tipo) {
 
         case "estado":
             html = `
-                <h3>📊 Estado</h3>
-                <p>⚡ Energía: ${estado.energia}</p>
-                <p>🛡 Valor: ${estado.valor}</p>
-                <p>🤝 Vínculo: ${estado.vinculo}</p>
-                <p>📅 Día: ${estado.dia}</p>
-                <p>🕒 Periodo: ${estado.periodo}</p>
-            `;
+        <h3><img class="icono-submenu" src="/aventura/img/iconos/estado.png" alt=""> Estado</h3>
 
+        <p class="linea-estado">
+            <img src="/aventura/img/iconos/energia.png" alt="">
+            Energía: ${estado.energia}
+        </p>
+
+        <p class="linea-estado">
+            <img src="/aventura/img/iconos/valor.png" alt="">
+            Valor: ${estado.valor}
+        </p>
+
+        <p class="linea-estado">
+            <img src="/aventura/img/iconos/vinculo.png" alt="">
+            Vínculo: ${estado.vinculo}
+        </p>
+
+        <p class="linea-estado">
+            <img src="/aventura/img/iconos/dia.png" alt="">
+            Día: ${estado.dia}
+        </p>
+
+        <p class="linea-estado">
+            <img src="/aventura/img/iconos/periodo.png" alt="">
+            Periodo: ${estado.periodo}
+        </p>
+    `;
             break;
     }
 
